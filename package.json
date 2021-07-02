@@ -1,0 +1,25 @@
+{
+  "name": "galaxy",
+  "version": "7.7.7",
+  "description": "Galaxy bot is bot-helper for Lesya Bot in VK",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bot",
+    "galaxy",
+    "vk"
+  ],
+  "author": "Zharckov ( https://vk.com/id171745503 )",
+  "license": "ISC",
+  "dependencies": {
+    "@types/moment": "^2.13.0",
+    "@vk-io/scenes": "^1.1.0",
+    "@vk-io/session": "^2.1.0",
+    "axios": "^0.21.1",
+    "moment": "^2.29.1",
+    "mongoose": "^5.12.15",
+    "vk-io": "^4.3.1"
+  }
+}
