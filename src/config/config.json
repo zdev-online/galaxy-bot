@@ -1,4 +1,11 @@
 {
     "token": "fdd6bf5625b6e85729be9a2f5c3617d5ac88660219b29de9078cc532fe165aec7c6cca22c586ec39d1092",
-    "dev": true
+    "dev": true,
+    "database": {
+        "database": "galaxy",
+        "host": "localhost",
+        "port": 0,
+        "user": "root",
+        "password": ""
+    }
 }
