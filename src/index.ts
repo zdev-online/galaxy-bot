@@ -1,15 +1,21 @@
-import { VK } from 'vk-io';
 import config from './config/config';
-import express, { Express } from 'express';
 import logger from './modules/logger';
 import sequelize from './database/database';
+import CMDManager from './modules/CMDManager';
+import express, { Express } from 'express';
+import { VK } from 'vk-io';
+import { SceneManager } from '@vk-io/scenes';
+import { SessionManager } from '@vk-io/session';
 
 const app: Express = express();
 const vk: VK = new VK({ token: config.token });
+const cmd: CMDManager = new CMDManager(vk);
+const scene: SceneManager = new SceneManager();
+const session: SessionManager = new SessionManager();
 
 (async () => {
     try {
-        if(config.dev){
+        if (config.dev) {
             await vk.updates.startPolling();
         } else {
             // @ts-expect-error
@@ -19,8 +25,13 @@ const vk: VK = new VK({ token: config.token });
         await sequelize.authenticate();
         await sequelize.sync({ alter: true, force: config.dev });
         logger.log(`Успешный запуск бота | Подключение к базе данных - установлено!`);
-    } catch(e){
+    } catch (e) {
         console.error(`Неудачный запуск бота: ${e}`);
         process.exit(-1);
     }
 })();
+
+vk.updates.on('message_new', session.middleware);
+vk.updates.on('message_new', scene.middleware);
+vk.updates.on('message_new', scene.middlewareIntercept);
+vk.updates.on('message_new', cmd.middleware);

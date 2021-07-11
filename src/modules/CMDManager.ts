@@ -1,22 +1,29 @@
 import { MessageContext, VK } from "vk-io";
-import { ICommands } from '../interfaces';
+import { ICommands, IUser } from '../interfaces';
 
 class CMDManager {
     private vk: VK;
     private commands: ICommands[];
     public length: number;
+    private fallback: (ctx: MessageContext, user: IUser, next: Function) => any;
 
     constructor(vk: VK) {
         this.vk = vk;
         this.commands = [];
         this.length = 0;
+        this.fallback = (ctx: MessageContext, user: IUser, next: Function) => {
+            if(!ctx.isChat){
+                return ctx.send(`Команда не найдена!`);
+            }
+            return;
+        }
     }
 
 
-    hear(string: string, need_level: number, callback: (ctx: MessageContext, user: Object, next: Function) => any): void;
-    hear(regexp: RegExp, need_level: number, callback: (ctx: MessageContext, user: Object, next: Function) => any): void;
+    hear(string: string, need_level: number, callback: (ctx: MessageContext, user: IUser, next: Function) => any): void;
+    hear(regexp: RegExp, need_level: number, callback: (ctx: MessageContext, user: IUser, next: Function) => any): void;
 
-    hear(matcher: string | RegExp, need_level: number, callback: (ctx: MessageContext, user: Object, next: Function) => any): void {
+    hear(matcher: string | RegExp, need_level: number, callback: (ctx: MessageContext, user: IUser, next: Function) => any): void {
         this.length++;
         this.commands.push({ matcher, callback, need_level });
     }
@@ -38,7 +45,13 @@ class CMDManager {
                 }
             }
         }
+        return this.fallback(ctx, ctx.user, next);
     }
+
+    onFallback(callback: (ctx: MessageContext, user: IUser, next: Function) => any){
+        this.fallback = callback;
+    }
+    
 }
 
 export default CMDManager;
