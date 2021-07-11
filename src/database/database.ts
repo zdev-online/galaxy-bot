@@ -7,7 +7,7 @@ const sequelize = new Sequelize({
     dialect: 'postgres',
     dialectModule: require('pg'),
     logging: (sql: string, timimng: number | undefined) => {
-        logger.debug(`SQL: [${timimng}] -> ${sql}`);
+        config.dev && logger.debug(`SQL: -> ${sql}`);
     }
 });
 

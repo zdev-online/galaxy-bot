@@ -5,7 +5,7 @@ interface Config {
         database: string,
         host: string,
         port: number,
-        user: string,
+        username: string,
         password: string
     }
 }

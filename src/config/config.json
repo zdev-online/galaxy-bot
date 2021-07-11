@@ -3,9 +3,9 @@
     "dev": true,
     "database": {
         "database": "galaxy",
-        "host": "localhost",
-        "port": 0,
-        "user": "root",
-        "password": ""
+        "host": "127.0.0.1",
+        "port": 5432,
+        "username": "postgres",
+        "password": "root"
     }
 }
