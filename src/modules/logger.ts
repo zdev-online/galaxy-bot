@@ -3,6 +3,7 @@ import { ILoggerOptions } from '../interfaces';
 import fs from 'fs';
 import path from 'path';
 import colors from 'colors';
+import config from '../config/config';
 
 class Logger {
     private path: string;
@@ -24,7 +25,7 @@ class Logger {
         return this.write(data, 'log');
     }
     debug(data: string){
-        console.debug(data);
+        config.dev && console.debug(`DEBUG ->  ${data}`);
     }
 
     private write(data: string, type: 'error' | 'info' | 'log'): Boolean{

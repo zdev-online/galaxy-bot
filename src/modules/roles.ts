@@ -1,13 +1,13 @@
 const USER          = 0;
-const VIP           = 1;
-const PRIMARY_VIP   = 2;
-const HELPER        = 97;
-const MODER         = 98;
-const ADMIN         = 99;
-const DEV           = 100;
+const VIP           = 500;
+const PRIMARY_VIP   = 600;
+const HELPER        = 700;
+const MODER         = 800;
+const ADMIN         = 900;
+const DEV           = 1000;
 
 function hasRights(userRole: number, candidate: number){
     return userRole >= candidate;
 }
 
-export default { VIP, PRIMARY_VIP, HELPER, MODER, ADMIN, DEV, hasRights }
+export default { USER, VIP, PRIMARY_VIP, HELPER, MODER, ADMIN, DEV, hasRights }

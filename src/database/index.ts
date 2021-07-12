@@ -1,2 +1,4 @@
+import User from "./models/User.model"
 
-export {}
+
+export { User }

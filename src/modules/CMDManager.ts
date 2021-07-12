@@ -12,11 +12,13 @@ class CMDManager {
         this.commands = [];
         this.length = 0;
         this.fallback = (ctx: MessageContext, user: IUser, next: Function) => {
-            if(!ctx.isChat){
-                return ctx.send(`Команда не найдена!`);
-            }
+            if(!ctx.isChat){ return ctx.send(`Команда не найдена!`); }
             return;
         }
+
+        this.hear = this.hear.bind(this);
+        this.middleware = this.middleware.bind(this);
+        this.onFallback = this.onFallback.bind(this);
     }
 
 
