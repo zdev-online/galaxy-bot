@@ -35,7 +35,7 @@ class CMDManager {
         if (ctx.text) {
             for (let i = 0; i < this.length; i++) {
                 let { matcher, callback, need_level } = this.commands[i];
-                if(need_level > ctx.user.level){ continue; }
+                if(need_level > ctx.level){ continue; }
                 if (typeof matcher == 'string') {
                     if (matcher == ctx.text) {
                         return callback(ctx, ctx.user, next);

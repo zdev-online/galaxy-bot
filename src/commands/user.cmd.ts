@@ -1,3 +1,4 @@
+import moment from "moment";
 import { MessageContext } from "vk-io";
 import { IUser } from "../interfaces";
 import CMDManager from "../modules/CMDManager";
@@ -11,9 +12,9 @@ export default (cmd: CMDManager) => {
         try {
             let message: string = `${user.getLinkNick()}, твой профиль:\n\n`;
             message += `🆔 ID: ${user.id}\n`;
-            // if(user.level > roles.USER){
-            //     message += `Привелегия: ${roles.getStringNameOfRole(user.level)}\n`;
-            // }
+            if(ctx.level){
+                message += `Привелегия (): ${roles.getStringNameOfRole(ctx.level.level)}\n`;
+            }
             logger.debug(JSON.stringify(user.toJSON()));
             if(ctx.isChat){
                 return await ctx.send(message);
