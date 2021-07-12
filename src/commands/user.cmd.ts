@@ -1,20 +1,37 @@
 import { MessageContext } from "vk-io";
 import { IUser } from "../interfaces";
 import CMDManager from "../modules/CMDManager";
+import logger from "../modules/logger";
 import roles from "../modules/roles";
 
 export default (cmd: CMDManager) => {
     
     // Профиль пользователя
-    cmd.hear(/^(проф(иль)?|prof(ile)?)/i, roles.USER, (ctx: MessageContext, user: IUser, next: Function) => {
+    cmd.hear(/^(проф(иль)?|prof(ile)?)/i, roles.USER, async (ctx: MessageContext, user: IUser, next: Function) => {
         try {
+            let message: string = `${user.getLinkNick()}, твой профиль:\n\n`;
+            message += `🆔 ID: ${user.id}\n`;
+            if(user.level > roles.USER){
+                message += `Привелегия: ${roles.getStringNameOfRole(user.level)}\n`;
+            }
+            logger.debug(JSON.stringify(user.toJSON()));
             if(ctx.isChat){
-
+                return await ctx.send(message);
             } else {
-
+                return await ctx.send(message);
             }
         } catch(e) {
+            logger.error(`Profile - ${e.message}`);
+        }
+    });
 
+    cmd.hear(/^(ник|nick)$/i, roles.USER, async (ctx: MessageContext, user: IUser, next: Function) => {
+        try {
+            user.settings.activeNick = !user.settings.activeNick;
+            await user.save({ fields: ['settings'] });
+            return await ctx.send(`${user.getLinkNick()}, теперь ник - ${user.settings.activeNick ? '' : 'не'} является ссылкой!`);
+        } catch(e){
+            logger.error(`Nick Status -> ${e.message}`);         
         }
     });
 }

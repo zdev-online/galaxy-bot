@@ -10,4 +10,16 @@ function hasRights(userRole: number, candidate: number){
     return userRole >= candidate;
 }
 
-export default { USER, VIP, PRIMARY_VIP, HELPER, MODER, ADMIN, DEV, hasRights }
+function getStringNameOfRole(role: number):string {
+    switch(role){
+        case VIP: { return 'VIP'; }
+        case PRIMARY_VIP: { return `Primary VIP`; }
+        case HELPER: { return `Helper`; }
+        case MODER: { return `Moder`; }
+        case ADMIN: { return `Admin`; }
+        case DEV: { return `DEV`; }
+        default: { return 'Неизвестно'; }
+    }
+}
+
+export default { USER, VIP, PRIMARY_VIP, HELPER, MODER, ADMIN, DEV, hasRights, getStringNameOfRole }

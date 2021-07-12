@@ -11,9 +11,19 @@ const User = sequelize.define <IUser>('User', {
     level: { type: DataTypes.INTEGER, defaultValue: roles.USER, allowNull: false },
     createdAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
     updatedAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+    settings: { 
+        type: DataTypes.JSON, 
+        defaultValue: {
+            activeNick: true
+        } 
+    }
 }, {
     tableName: tableNames.users,
     timestamps: true
 });
+
+User.prototype.getLinkNick = function(): string {
+    return this.settings.activeNick ? `[id${this.vkId}|${this.nickname}]` : this.nickname;
+}
 
 export default User;

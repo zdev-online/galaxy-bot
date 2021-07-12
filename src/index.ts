@@ -11,6 +11,7 @@ import groupMiddleware from './middlewares/group.middleware';
 import fs from 'fs';
 import path from 'path';
 import { User } from './database';
+import roles from './modules/roles';
 
 const app: Express = express();
 const vk: VK = new VK({ token: config.token });
