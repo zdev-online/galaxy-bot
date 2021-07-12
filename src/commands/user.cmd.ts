@@ -11,9 +11,9 @@ export default (cmd: CMDManager) => {
         try {
             let message: string = `${user.getLinkNick()}, твой профиль:\n\n`;
             message += `🆔 ID: ${user.id}\n`;
-            if(user.level > roles.USER){
-                message += `Привелегия: ${roles.getStringNameOfRole(user.level)}\n`;
-            }
+            // if(user.level > roles.USER){
+            //     message += `Привелегия: ${roles.getStringNameOfRole(user.level)}\n`;
+            // }
             logger.debug(JSON.stringify(user.toJSON()));
             if(ctx.isChat){
                 return await ctx.send(message);
