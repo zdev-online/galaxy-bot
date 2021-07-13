@@ -1,4 +1,3 @@
-const USER          = 0;
 const VIP           = 500;
 const PRIMARY_VIP   = 600;
 const HELPER        = 700;
@@ -13,13 +12,13 @@ function hasRights(userRole: number, candidate: number){
 function getStringNameOfRole(role: number):string {
     switch(role){
         case VIP: { return 'VIP'; }
-        case PRIMARY_VIP: { return `Primary VIP`; }
-        case HELPER: { return `Helper`; }
-        case MODER: { return `Moder`; }
-        case ADMIN: { return `Admin`; }
-        case DEV: { return `DEV`; }
-        default: { return 'Неизвестно'; }
+        case PRIMARY_VIP: { return `Премиум VIP`; }
+        case HELPER: { return `Помощник`; }
+        case MODER: { return `Модератор`; }
+        case ADMIN: { return `Администратор`; }
+        case DEV: { return `Разработчик`; }
+        default: { return '-'; }
     }
 }
 
-export default { USER, VIP, PRIMARY_VIP, HELPER, MODER, ADMIN, DEV, hasRights, getStringNameOfRole }
+export default { VIP, PRIMARY_VIP, HELPER, MODER, ADMIN, DEV, hasRights, getStringNameOfRole }

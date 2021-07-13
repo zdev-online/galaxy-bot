@@ -10,8 +10,6 @@ import userMiddleware from './middlewares/user.middleware';
 import groupMiddleware from './middlewares/group.middleware';
 import fs from 'fs';
 import path from 'path';
-import { User } from './database';
-import roles from './modules/roles';
 
 const app: Express = express();
 const vk: VK = new VK({ token: config.token });
@@ -51,7 +49,7 @@ const session: SessionManager = new SessionManager();
 
         logger.log(`Успешный запуск бота | Подключение к базе данных - установлено!`);
     } catch (e) {
-        console.error(`Неудачный запуск бота: ${e}`);
+        console.error(`Неудачный запуск бота: ${e}\n${e.stack}`);
         process.exit(-1);
     }
 })();

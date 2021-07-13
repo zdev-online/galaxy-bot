@@ -1,4 +1,4 @@
 export default {
     users: 'users',
-    levels: 'levels'
+    rights: 'rights'
 }

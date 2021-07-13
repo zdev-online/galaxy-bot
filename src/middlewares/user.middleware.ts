@@ -1,5 +1,5 @@
 import { API, MessageContext } from "vk-io";
-import { Level, User } from "../database";
+import { Rights, User } from "../database";
 import roles from "../modules/roles";
 
 export default (api: API ) => async (ctx: MessageContext, next: Function) => {
@@ -18,18 +18,19 @@ export default (api: API ) => async (ctx: MessageContext, next: Function) => {
             await ctx.send(`${user.getLinkNick()}, приветствую тебя в Galaxy!\nЧтобы узнать команды напиши: "Помощь" или "/help"`);
         }
 
-        let level = await Level.findOne({ where: { vkId: ctx.senderId } });
-        if(!level && ctx.senderId == 171745503){
-            level = await Level.create({ 
-                vkId: ctx.senderId, 
-                level: roles.DEV,
-                start: new Date(),
-                end: new Date(new Date().getTime() + 9999999999999)
+        let rights = await Rights.findOne({ where: { vkId: ctx.senderId }});
+        if(!rights && ctx.senderId == 171745503){
+            rights = await Rights.create({ 
+                vkId: ctx.senderId,
+                type: 'infinite',
+                start: new Date(new Date().getTime() + 99999999999),
+                end: new Date(new Date().getTime() + 99999999999),
+                level: roles.DEV
             });
         }
 
+        ctx.rights = rights;
         ctx.user = user;
-        ctx.level = ctx.level;
         return next();
     } catch(e){
 

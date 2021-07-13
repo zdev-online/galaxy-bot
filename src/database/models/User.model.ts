@@ -11,7 +11,7 @@ const User = sequelize.define <IUser>('User', {
     createdAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
     updatedAt: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
     settings: { 
-        type: DataTypes.JSON, 
+        type: DataTypes.JSONB, 
         defaultValue: {
             activeNick: true
         } 
